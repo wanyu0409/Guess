@@ -9,7 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
+    int secret = (int) (Math.random()*10+1);
+    int min=1, max=10;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,20 +18,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void guess(View view){
-        Log.d("MainActivity", "number");
-        int random;
-        random = (int)(Math.random()*10)+1;
-        EditText nEnter = (EditText) findViewById(R.id.n_enter);
-        int num = Integer.parseInt(nEnter.getText().toString());
-        if (num == random){
+        EditText edNmuber = (EditText) findViewById(R.id.ed_Number);
+
+        int number = Integer.parseInt(edNmuber.getText().toString());
+        if(secret > number){
+            min = number;
+            Toast.makeText(this, "大一點,請輸入"+min+"~"+max, Toast.LENGTH_LONG).show();
+        }
+        if (secret < number){
+            max = number;
+            Toast.makeText(this, "小一點,請輸入"+min+"~"+max, Toast.LENGTH_LONG).show();
+        }
+        if (secret == number){
             new AlertDialog.Builder(this)
-                    .setMessage("Yes! The number is " + random)
+                    .setMessage("答對了")
                     .setPositiveButton("OK", null)
                     .show();
-        }else{
-            
         }
-
 
     }
 }
